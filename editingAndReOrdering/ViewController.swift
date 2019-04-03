@@ -11,12 +11,19 @@ import UIKit
 class ViewController: UIViewController {
    
     @IBOutlet weak var tableView: UITableView!
+    @IBAction func refreshTable(_ sender: Any) {
+        tableView.reloadData()
+    }
+    
+    @IBAction func editButtonPressed(_ sender: Any) {
+        tableView.isEditing = true
+    }
     
     var emojis = allEmojis
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.isEditing = true
+        
     }
     
     
@@ -50,5 +57,11 @@ extension ViewController: UITableViewDelegate {
         return "Remove"
     }
     
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let source = emojis[sourceIndexPath.row]
+        
+        emojis.remove(at: sourceIndexPath.row)
+        emojis.insert(source, at: destinationIndexPath.row)
+    }
 }
 
