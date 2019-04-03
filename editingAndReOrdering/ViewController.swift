@@ -10,11 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
    
-    let emojis = allEmojis
+    @IBOutlet weak var tableView: UITableView!
+    
+    var emojis = allEmojis
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.isEditing = true
     }
     
     
@@ -37,6 +39,11 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            emojis.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+        }
+    }
 }
 
