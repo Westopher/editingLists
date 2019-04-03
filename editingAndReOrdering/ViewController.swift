@@ -45,5 +45,10 @@ extension ViewController: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
         }
     }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
+    }
+    
 }
 
