@@ -15,8 +15,11 @@ class ViewController: UIViewController {
         tableView.reloadData()
     }
     
+    var checkmark = Set<IndexPath>()
+    
     @IBAction func editButtonPressed(_ sender: Any) {
-        tableView.isEditing = true
+        let tableViewEditingMode = tableView.isEditing
+        tableView.setEditing(!tableViewEditingMode, animated: true)
     }
     
     var emojis = allEmojis
@@ -46,6 +49,15 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .checkmark
+        }
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             emojis.remove(at: indexPath.row)
